@@ -1,0 +1,70 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "compile",
+                "link"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "compile",
+            "type": "shell",
+            "command": "g++.exe",
+            "args": [
+                "-g",
+                "-c",
+                "main.cpp", // ソースコード ファイル名
+                "-IC:/mingw64/include", // MinGW-w64のパス
+                "-IC:/DxLib_GCC/13_1_0_x86_64_w64", // DXライブラリのパス
+                "-I",
+                ".",
+                "-DDX_GCC_COMPILE",
+                "-DDX_NON_INLINE_ASM",
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "link",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.o",
+                "-mwindows",
+                "-LC:/mingw64/lib", // MinGW-w64のパス
+                "-LC:/DxLib_GCC/13_1_0_x86_64_w64", // DXライブラリのパス
+                "-lDxLib",
+                "-lDxUseCLib",
+                "-lDxDrawFunc",
+                "-ljpeg",
+                "-lpng",
+                "-lzlib",
+                "-ltiff",
+                "-ltheora_static",
+                "-lvorbis_static",
+                "-lvorbisfile_static",
+                "-logg_static",
+                "-lbulletdynamics",
+                "-lbulletcollision",
+                "-lbulletmath",
+                "-lopusfile",
+                "-lopus",
+                "-lsilk_common",
+                "-lcelt",
+                "-o",
+                "main.exe" // 実行ファイル名
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}
